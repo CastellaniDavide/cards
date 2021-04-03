@@ -1,42 +1,36 @@
-/**
- * @file cards.cpp
- *
- * @version 01.01 202143
- *
- * @brief https://training.olinfo.it/#/task/ois_cards/statement
- *
- * @ingroup cards
- * (Note: this needs exactly one @defgroup somewhere)
- *
- * @author Castellani Davide
- *
- * Contact: contacts@castellanidavide.it
- *
- */
-
-// Includes
 #include <bits/stdc++.h>
 using namespace std;
 
-// Variabiles
-int N;
+#define DEBUG
 
-// Main code
+long long solve(long long N, long long R, long long C)
+{
+    int counter = 0;
+    int mymin, mymax;
+    mymin = mymax = C - 1;
+
+    for (int i = R - 1; i >= 0; --i)
+    {
+        counter += mymax - mymin + 1;
+#ifdef DEBUG
+        cout << i << "\t" << mymin << "\t" << mymax << "\t" << counter << endl;
+#endif // DEBUG
+        if (mymax == i && mymin == 0)
+            return counter + (i) * (i + 1) / 2;
+        if (mymin != 0)
+            mymin--;
+        if (mymax == i)
+            mymax--;
+    }
+
+    return counter;
+}
+
 int main()
 {
-  // Cncomment the following lines if you want to read/write from files
-  // freopen("input.txt", "r", stdin);
-  // freopen("output.txt", "w", stdout);
-
-  // Input
-  cin >> N;
-
-  // Code
-  // ...
-
-  // Output
-  cout << N << endl;
-
-  // End
-  return 0;
+    long long N, R, C;
+    assert(3 == scanf("%lld %lld %lld", &N, &R, &C));
+    printf("%lld\n", solve(N, R, C));
+    return 0;
 }
+
